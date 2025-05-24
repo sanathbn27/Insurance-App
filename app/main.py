@@ -18,7 +18,8 @@ policy_preview = ""
 if selected_company != "Select a Company..." and selected_policy != "Select a Policy...":
     policy_data = MOCK_INSURANCE_DATA[selected_company][selected_policy]
     policy_preview = policy_data["preview"]
-    policy_text = policy_data["document"]
+    # Fetch the document by calling the lambda
+    policy_text = policy_data["document"]()
     st.markdown("**Mock Policy Preview:**")
     st.text_area("", policy_preview, height=80, disabled=True)
 
