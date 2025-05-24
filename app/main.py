@@ -14,10 +14,13 @@ if selected_company and selected_company != "Select a Company...":
 selected_policy = st.selectbox("Select a Policy Type:", policy_list)
 
 policy_text = ""
+policy_preview = ""
 if selected_company != "Select a Company..." and selected_policy != "Select a Policy...":
-    policy_text = MOCK_INSURANCE_DATA[selected_company][selected_policy]
-    st.markdown("**Mock Policy Document:**")
-    st.text_area("", policy_text, height=120, disabled=True)
+    policy_data = MOCK_INSURANCE_DATA[selected_company][selected_policy]
+    policy_preview = policy_data["preview"]
+    policy_text = policy_data["document"]
+    st.markdown("**Mock Policy Preview:**")
+    st.text_area("", policy_preview, height=80, disabled=True)
 
 st.markdown("**Ask your question about the policy:**")
 user_question = st.text_input("", "")
