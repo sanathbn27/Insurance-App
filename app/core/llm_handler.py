@@ -41,5 +41,5 @@ def generate_policy_answer(policy_text: str, user_question: str) -> str:
         ),
     )
     prompt = prompt_template.format(policy_text=policy_text, user_question=user_question)
-    answer = llm(prompt)
+    answer = llm.invoke(prompt)
     return answer.strip()

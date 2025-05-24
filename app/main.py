@@ -1,3 +1,6 @@
+import os
+os.environ["STREAMLIT_WATCHER_IGNORE_MODULES"] = "torch"
+
 import streamlit as st
 from data.mock_policy_data import MOCK_INSURANCE_DATA
 from core.llm_handler import generate_policy_answer
@@ -24,9 +27,12 @@ if selected_company != "Select a Company..." and selected_policy != "Select a Po
     st.text_area("", policy_preview, height=80, disabled=True)
 
 st.markdown("**Ask your question about the policy:**")
-user_question = st.text_input("", "")
 
-if st.button("Get AI Answer"):
+with st.form("question_form", clear_on_submit=False):
+    user_question = st.text_input("", "")
+    submitted = st.form_submit_button("Get AI Answer")
+
+if submitted:
     if selected_company == "Select a Company..." or selected_policy == "Select a Policy...":
         st.warning("Please select both a company and a policy type before asking a question.")
     elif not user_question.strip():
